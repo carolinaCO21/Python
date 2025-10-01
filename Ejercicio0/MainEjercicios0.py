@@ -27,7 +27,9 @@ def ejercicio3():
     #3
     print("========================")
     print("Ejericio 3")
-    print(sumarNumeros())
+    numeros:str = input("Introduce una lista de números separados por comas: ")
+    
+    print(f"Resultado: {sumarNumeros(numeros)}")
     
 def ejercicio4():
     #4
