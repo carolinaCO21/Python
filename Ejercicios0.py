@@ -68,26 +68,39 @@ def sumarNumeros() -> int:
     return sum(lista)
 
 #4
+def adivinaElNumero(entrada:input) -> None:
+   import random
+
 def adivinaElNumero() -> None:
-    num:int = random.randint(1,100)
+    num:int = random.randint(1, 100)
     print(f"debug: {num}")
+
     while True:
-        entrada = input("Introduce un número: ")
+        entrada = input("Introduce un número (-1 para rendirte): ")
+
         try:
             numero:int = int(entrada)
         except ValueError:
             print("Por favor, introduce un número válido.")
             continue
+
         if numero == num:
-            print(f"Has ganado!! Número a adivinar: {num}")
+            print(f"¡Has ganado! El número era: {num}")
             break
         elif numero == -1:
-            print("Te has rendido")
+            print("Te has rendido.")
             break
         elif numero > num:
-            print("EL NÚMERO ES MENOR")
+            print("El número es menor.")
         else:
-            print("EL NÚMERO ES MAYOR")
+            print("El número es mayor.")
+
+def ejercicio4():
+    print("========================")
+    print("Ejercicio 4")
+    print("Adivina el número entre 1 y 100, -1 para rendirte")
+    adivinaElNumero()
+
 
 #5
 def aprenderAContar(numero:int)-> None:
