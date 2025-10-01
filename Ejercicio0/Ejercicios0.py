@@ -50,22 +50,9 @@ def ordenarNumeros (a: int, b:int) -> None:
     print(f"{b} {a}") if (a>b)  else  print(f"{a} {b}")
 
 #3
-def sumarNumeros() -> int:
-    numeros:str = input("Introduce una lista de números separados por comas: ")
-    lista = numeros.strip().split(",")
-    #(list comprehension):  sintaxis -> [expresión for elemento in iterable]
-    """
-    1.-Recorre cada elemento en el iterable.
-
-    2.-Aplica la expresión al elemento.
-
-    3.-Guarda el resultado en una nueva lista automáticamente.
-    """
-    #elimino los espacios con 
-    lista = [int(val.strip()) for val in lista]
-    #print(type(lista))
-    print(lista)
-    return sum(lista)
+def sumarNumeros(numerosS:int) -> int:
+    lista_numeros = [int(num.strip()) for num in numerosS.split(",")]
+    return sum(lista_numeros)
 
 #4
 def adivinaElNumero(entrada:input) -> None:
