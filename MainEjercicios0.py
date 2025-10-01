@@ -157,6 +157,25 @@ switch = {
 
 def main():
     while True:
+        print("""
+        =============================
+                MENÚ PRINCIPAL
+        =============================
+        1. Es par o impar?
+        2. Ordenar dos números
+        3. Sumar números hasta 0
+        4. Adivina el número
+        5. Aprender a contar
+        6. Factorial
+        7. Es número primo?
+        8. Imprimir triángulo
+        9. Números comprendidos entre A y B
+        10. Máximo entre dos números
+        11. Es vocal?
+        12. Calculadora Profesional
+        0. Salir
+        =============================
+        """)
         print("\nSeleccione el ejercicio a ejecutar (1-12) o 0 para salir:")
         opcion = int(input("Opción: "))
         
