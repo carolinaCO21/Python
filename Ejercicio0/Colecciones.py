@@ -1,4 +1,4 @@
-import random
+import random, string
 """
 1.-Crea una lista de enteros de longitud 10 que se inicializará con números aleatorios comprendidos entre 1 y 100. 
 
@@ -53,11 +53,12 @@ El programa debe pedir una frase al usuario y debe mostrar la frase encriptada. 
 
 """
 
-#1
+#1 y 5
 
-def listaEnterosAleatorios() -> list[int]:
-    listaEnterosAleatorios = [random.randint(1,100) for i in range(10)]
+def listaEnterosAleatorios(inicio:int, fin:int) -> list[int]:
+    listaEnterosAleatorios = [random.randint(inicio,fin) for i in range(10)]
     return listaEnterosAleatorios
+
 
 #2
 def mostrarMaxMin(lista_numeros:list[int]) -> None:
@@ -70,4 +71,25 @@ def esPar(lista_numeros:list[int]) -> None:
     for num in lista_numeros:
         f"{num} es par" if (num %2 == 0) else f"{num} es impar"
     
+
+#4
+def ordenarNumeros (lista_numeros:list[int]):
+    lista_numeros.sort(reverse=True)
+    return lista_numeros
+
+
+#6
+def contarPalabras(texto:str) -> dict[str,int]:
+    palabras = texto.split()
+    palabras = [palabra.strip(string.punctuation).lower() for palabra in palabras] #limpamos puntuación hola, etc
+    palabras = [palabra for palabra in palabras if palabra.isalpha()]
+    diccionario_frecuencia:dict[str,int] ={}
+    for palabra in palabras:
+        if palabra in diccionario_frecuencia:
+            diccionario_frecuencia[palabra] += 1
+        else:
+            diccionario_frecuencia[palabra] = 1 
+    return diccionario_frecuencia
+
+#7
 
