@@ -60,14 +60,14 @@ def listaEnterosAleatorios() -> list[int]:
     return listaEnterosAleatorios
 
 #2
-def mostrarMaxMin(numerosS:str) -> None:
-    numeros = [float(num) for num in numerosS.split(",")]
-    if len(numeros) != 10:
-        print("Por favor, introduce exactamente 10 números.")
-        return
+def mostrarMaxMin(lista_numeros:list[int]) -> None:
+    numeros = lista_numeros
     print(f"Máximo: {max(numeros)}")
     print(f"Mínimo: {min(numeros)}")
 
 #3
-
+def esPar(lista_numeros:list[int]) -> None:
+    for num in lista_numeros:
+        f"{num} es par" if (num %2 == 0) else f"{num} es impar"
+    
 
