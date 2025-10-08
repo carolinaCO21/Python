@@ -1,41 +1,66 @@
 
 
 
-from Colecciones import listaEnterosAleatorios, mostrarMaxMin,esPar
+from Colecciones import listaEnterosAleatorios, mostrarMaxMin,esPar, ordenarNumeros, contarPalabras
 import random
 
 
 def ejercicio1():
     print("Ejercicio 1")
     print("Lista de 10 números enteros aleatorios entre 1 y 100:")
+    print(f"Resultado: {",".join(str(num) for num in listaEnterosAleatorios(1,100))}")
 
-    print(f"Resultado: {",".join(str(num) for num in listaEnterosAleatorios())}")
+# usado por 2 , 3 y 4
 
-#2 y 3
-
-def numsSeparadosPorComa(numerosAIntroducir:int ,enunciado:str , funcion):
+def numsSeparadosPorComa(numerosAIntroducir:int , enunciado:str , funcion):
     print("Ejercicio 3")
     print(enunciado)
     numerosS = input(f"Introduce una lista de {numerosAIntroducir} números separados por comas: ")
     if len(numerosS.split(",")) != numerosAIntroducir:
         print(f"Por favor, introduce exactamente {numerosAIntroducir} números.")
-        return
-    lista_numeros = []
+        return None
     try:
         lista_numeros = [int(num.strip()) for num in numerosS.split(",")]
     except ValueError:
         print("Todos los valores deben ser números enteros.")
-        return
-    funcion(lista_numeros)
+        return None
 
+    # Aplica la función y devuelve el resultado
+    return funcion(lista_numeros)
+
+#2
+def ejercicio2():
+    return numsSeparadosPorComa(10,"Mostraremos el máximo y minimo de una lista de números", mostrarMaxMin)
+
+#3
+def ejercicio3():
+    return numsSeparadosPorComa(10,"Diremos si cada número es par o impar", esPar)
+#4
 def ejercicio4():
-    pass
+    resultado = numsSeparadosPorComa(10, "Ordenaremos de mayor a menor", ordenarNumeros)
+    if resultado is not None:
+        print("Números ordenados de mayor a menor:")
+        print(", ".join(str(num) for num in resultado))
 
 def ejercicio5():
-    pass
+    print("Lista de 10 números enteros aleatorios entre 1 y 10:")
+    listaNumeros = listaEnterosAleatorios(1,10)
+    print("Cuántas veces aparece N?")
+    inputN = input("Introduce un número entre 1 y 10: ")
+    if not inputN.isdigit() or not (1 <= int(inputN) <= 10):
+        print("Por favor, introduce un número válido entre 1 y 10.")
+        return
+   
 
 def ejercicio6():
-    pass
+    print("Contador de palabras en una frase")
+    texto = input("Introduce una frase: ")
+    frecuencia_palabras = contarPalabras(texto)
+    print("Frecuencia de palabras:")
+    # clave  es palabrea, valor es frecuencia
+    for clave, valor in frecuencia_palabras.items():
+        print(f"{clave}: {valor}")
+        print("====================")
 
 def ejercicio7():
     pass
@@ -56,9 +81,9 @@ def get_user_choice(opcion: int):
         case 1:
             return ejercicio1
         case 2:
-            return numsSeparadosPorComa(10,"Mostraremos el máximo y minimo de una lista de números", mostrarMaxMin)
+            return ejercicio2
         case 3:
-            return numsSeparadosPorComa(8,"Mostraremos si los números de una lista son pares o impares", esPar)
+            return ejercicio3
         case 4:
             return ejercicio4
         case 5:
@@ -74,7 +99,7 @@ def get_user_choice(opcion: int):
         case 10:
             return ejercicio10
         case _:
-            print("Opción no válida")
+            return None
 
 def main():
     while True:
