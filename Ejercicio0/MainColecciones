@@ -1,7 +1,7 @@
 
 
 
-from Colecciones import listaEnterosAleatorios, mostrarMaxMin
+from Colecciones import listaEnterosAleatorios, mostrarMaxMin,esPar
 import random
 
 
@@ -11,14 +11,22 @@ def ejercicio1():
 
     print(f"Resultado: {",".join(str(num) for num in listaEnterosAleatorios())}")
 
-def ejercicio2():
-    print("Ejercicio 2")
-    print("Mostraremos el máximo y el mínimo entre 10 números")
-    numerosS = input("Introduce 10 números separados por comas: ")
-    mostrarMaxMin(numerosS)
+#2 y 3
 
-def ejercicio3():
-    pass
+def numsSeparadosPorComa(numerosAIntroducir:int ,enunciado:str , funcion):
+    print("Ejercicio 3")
+    print(enunciado)
+    numerosS = input(f"Introduce una lista de {numerosAIntroducir} números separados por comas: ")
+    if len(numerosS.split(",")) != numerosAIntroducir:
+        print(f"Por favor, introduce exactamente {numerosAIntroducir} números.")
+        return
+    lista_numeros = []
+    try:
+        lista_numeros = [int(num.strip()) for num in numerosS.split(",")]
+    except ValueError:
+        print("Todos los valores deben ser números enteros.")
+        return
+    funcion(lista_numeros)
 
 def ejercicio4():
     pass
@@ -48,9 +56,9 @@ def get_user_choice(opcion: int):
         case 1:
             return ejercicio1
         case 2:
-            return ejercicio2
+            return numsSeparadosPorComa(10,"Mostraremos el máximo y minimo de una lista de números", mostrarMaxMin)
         case 3:
-            return ejercicio3
+            return numsSeparadosPorComa(8,"Mostraremos si los números de una lista son pares o impares", esPar)
         case 4:
             return ejercicio4
         case 5:
@@ -71,7 +79,7 @@ def get_user_choice(opcion: int):
 def main():
     while True:
         print("""
-              1
+        
         =============================
                 MENÚ PRINCIPAL  L
         =============================
