@@ -118,3 +118,20 @@ Thumbs.db
 # Ignore compiled python files in subfolders
 **/__pycache__/
 **/*.pyc
+
+# Archivos de base de datos SQLite
+*.sqlite3
+*.db
+
+# Carpeta de migraciones (si usas Alembic, por ejemplo)
+migrations/
+
+# Carpeta de archivos estáticos generados (si usas alguna)
+static/
+
+# Archivos de dependencias empaquetadas
+pip-wheel-metadata/
+
+# Configuración local y secretos
+secrets.json
+config.local.json
