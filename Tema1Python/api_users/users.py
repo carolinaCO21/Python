@@ -38,12 +38,12 @@ def search_user(id : int):
     # devuelve una lista vacía si no encuentra nda
     # devuelve una lista con el usuario
     users = [user for user in users_list if user.id == id]
-                     # len(users) == 0 ? lo mismo que if users
+                    # len(users) == 0 ? lo mismo que if users
     if not  users:
-         raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="User not found")
     return users[0]
-  
-   
+
+
 
 
 

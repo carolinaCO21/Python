@@ -50,11 +50,11 @@ def next_id():
     return max_id+1
 
 #201 si va bien
-@app.post("/users", status_code=201, response_model=Empleado)
-def add_empleado(empleado_a_Añadir:Empleado):
-    empleado_a_Añadir.id = next_id()
-    empleados_list.append(empleado_a_Añadir)
-    return empleado_a_Añadir
+@app.post("/empleados", status_code=201, response_model=Empleado)
+def add_empleado(nuevo_empleado:Empleado):
+    nuevo_empleado.id = next_id()
+    empleados_list.append(nuevo_empleado)
+    return nuevo_empleado
 
 @app.put("/empleados/{id}", response_model=Empleado)
 def modify_empleado(id:int, empleado_mod_or_add:Empleado):
@@ -62,5 +62,5 @@ def modify_empleado(id:int, empleado_mod_or_add:Empleado):
         if empleado.id == id:
             empleados_list[index] = empleado_mod_or_add
             return empleado_mod_or_add
-    raise HTTPException(status_code=404, detail="User not found")
+    raise HTTPException(status_code=404, detail="Empleado not found")
 
