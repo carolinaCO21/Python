@@ -21,9 +21,9 @@ class Empleado(BaseModel):
 
 empleados_list = [
     Empleado(id=1, nombre="Paco",apellidos="Pérez Martínez",telefono= "633852354",correo="paco@example.com", num_cuenta="P-01", id_tienda=1 ),
-    Empleado(id=2, nombre="Marta",apellidos="Pérez Perez",telefono= "633852354",correo="paco@example.com", num_cuenta="P-01", id_tienda=1 ),
-    Empleado(id=3, nombre="Jose",apellidos="Pérez Fernández",telefono= "633852354",correo="paco@example.com", num_cuenta="P-01", id_tienda=1 ),
-    Empleado(id=4, nombre="Nuria",apellidos="Pérez Muños",telefono= "633852354",correo="paco@example.com", num_cuenta="P-01", id_tienda=1 )
+    Empleado(id=2, nombre="Marta",apellidos="Pérez Perez",telefono= "633852354",correo="paco@example.com", num_cuenta="P-02", id_tienda=1 ),
+    Empleado(id=3, nombre="Jose",apellidos="Pérez Fernández",telefono= "633852354",correo="paco@example.com", num_cuenta="P-03", id_tienda=1 ),
+    Empleado(id=4, nombre="Nuria",apellidos="Pérez Muños",telefono= "633852354",correo="paco@example.com", num_cuenta="P-04", id_tienda=1 )
 
 ]
 
@@ -38,10 +38,10 @@ def obtener_empleado_por_id(id:int):
 
 
 def search_empleado(id_a_encontrar):
-    for empleado in empleados_list:
-        if empleado.id == id_a_encontrar:
-            return empleado
-    raise HTTPException(status_code=404, detail="Empleado not found")
+    empleado_busqueda = [empleado for empleado in empleados_list if empleado.id == id_a_encontrar]
+    if empleado_busqueda:
+        return empleado_busqueda[0] 
+    raise HTTPException(status_code=404, detail="Empleado no encontrado")
 
 def next_id():
     if not empleados_list: 
@@ -64,3 +64,10 @@ def modify_empleado(id:int, empleado_mod_or_add:Empleado):
             return empleado_mod_or_add
     raise HTTPException(status_code=404, detail="Empleado not found")
 
+@app.delete("/empleados/{id}")
+def remove_empleado(id: int):
+    for saved_empleado in empleados_list:
+        if saved_empleado.id == id:
+            empleados_list.remove(saved_empleado)
+            return {}
+    raise HTTPException(status_code=404, detail="Empleado not found")

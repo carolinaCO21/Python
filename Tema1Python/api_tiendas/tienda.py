@@ -25,13 +25,21 @@ tiendas_list =   [Tienda(id=1,domicilio="Calle Mayor 12", telefono="912345678", 
 def tiendas():
     return tiendas_list
                 
-@app.get("/tiendas/{id_tienda}")
-def get_tienda(id_tienda:int): 
-    tienda_busqueda= [tienda for tienda in tiendas_list if tienda.id == id_tienda]
 
-                # len(lista) lo mismo que if lista
-    return tienda_busqueda[0] if tienda_busqueda != 0 else {"error" : "No user found"}
     
+@app.get("/tiendas/{id}")
+def obtener_tienda_por_id(id:int):
+    return search_tienda(id)
+
+
+
+def search_tienda(id_a_encontrar):
+    tienda_busqueda= [tienda for tienda in tiendas_list if tienda.id == id_a_encontrar]
+    if tienda_busqueda:
+        return tienda_busqueda[0] 
+    raise HTTPException(status_code=404, detail="Tienda no encontrada")
+
+
 
 def next_id():
     if not tiendas_list: 
@@ -63,4 +71,4 @@ def remove_tiendas(id: int):
         if saved_tienda.id == id:
             tiendas_list.remove(saved_tienda)
             return {}
-    raise HTTPException(status_code=404, )
+    raise HTTPException(status_code=404, detail="Tienda not found")
