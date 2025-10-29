@@ -1,10 +1,10 @@
 #fastapi dev tiendas.py
 
 
-from fastapi import FastAPI, HTTPException
+from fastapi import  APIRouter, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter(prefix="/tiendas", tags=["tiendas"])
 
 
 # ojito Entidad 
@@ -21,13 +21,13 @@ tiendas_list =   [Tienda(id=1,domicilio="Calle Mayor 12", telefono="912345678", 
                 ]
 
 
-@app.get("/tiendas")
+@router.get("/")
 def tiendas():
     return tiendas_list
                 
 
     
-@app.get("/tiendas/{id}")
+@router.get("/{id}")
 def obtener_tienda_por_id(id:int):
     return search_tienda(id)
 
@@ -49,13 +49,13 @@ def next_id():
 
 
 #201 si va bien
-@app.post("/tiendas", status_code=201, response_model=Tienda)
+@router.post("/", status_code=201, response_model=Tienda)
 def add_tienda(nueva_tienda:Tienda):
     nueva_tienda.id = next_id()
     tiendas_list.append(nueva_tienda)
     return nueva_tienda
 
-@app.put("/tiendas/{id}", response_model=Tienda)
+@router.put("/{id}", response_model=Tienda)
 def modify_tienda(id:int, tienda_mod_or_add:Tienda):
     for index, tienda in enumerate(tiendas_list):
         if tienda.id == id:
@@ -65,7 +65,7 @@ def modify_tienda(id:int, tienda_mod_or_add:Tienda):
 
 
 
-@app.delete("/tiendas/{id}")
+@router.delete("/{id}")
 def remove_tiendas(id: int):
     for saved_tienda in tiendas_list:
         if saved_tienda.id == id:

@@ -3,10 +3,12 @@
 
 # pip install "fastapi[standard]"
 
-from fastapi import FastAPI, HTTPException
+#from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+from fastapi import  APIRouter, HTTPException
+# http://127.0.0.1:8000/docs#/ 
+router = APIRouter(prefix="/users", tags=["users"])
 
 
 # Entidad user
@@ -23,11 +25,11 @@ users_list =   [User(id=1,name = "Paco", surname="Pérez", age=30),
                 ]
 
 
-@app.get("/users")
+@router.get("/")
 def users():
     return users_list
                 # nombre que te de la gana 
-@app.get("/users/{id}")
+@router.get("/{id}")
 def get_user(id:int): 
     return search_user(id)
 
@@ -54,7 +56,7 @@ def next_id():
 
 # POST status_code= 201 si va bien
                                         # le masamos una clase para append
-@app.post("/users", status_code=201, response_model=User)
+@router.post("/", status_code=201, response_model=User)
 def add_user(user: User):
     # Calculamos nuevo id y lo modificamos al usuario a añadir
     user.id = next_id()
@@ -65,7 +67,7 @@ def add_user(user: User):
 
 
 
-@app.put("/users/{id}", response_model=User)
+@router.put("/{id}", response_model=User)
 def modify_user(id: int, user: User):
     # El método enumerate devuelve el índice de la lista
     # y el usuario almacenado en dicho índice
@@ -76,7 +78,7 @@ def modify_user(id: int, user: User):
             return user
     raise HTTPException(status_code=404, detail="User not found")
 
-@app.delete("/users/{id}")
+@router.delete("/{id}")
 def remove_user(id: int):
     for saved_user in users_list:
         if saved_user.id == id:

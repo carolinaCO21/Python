@@ -2,10 +2,11 @@
 
 # pip install "fastapi[standard]"
 
-from fastapi import FastAPI, HTTPException
+#from fastapi import FastAPI, HTTPException
+from fastapi import ApiRouter, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter(prefix="/users")
 
 
 # Entidad user
@@ -22,11 +23,11 @@ users_list =   [User(id=1,name = "Paco", surname="Pérez", age=30),
                 ]
 
 
-@app.get("/users")
+@router.get("/users")
 def users():
     return users_list
                 # nombre que te de la gana 
-@app.get("/users/{id}")
+@router.get("/users/{id}")
 def get_user(id:int): 
     return search_user(id)
    

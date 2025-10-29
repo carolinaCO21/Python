@@ -3,10 +3,10 @@
 
 #pip install "fastapi[standart]"
 
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter(prefix="/empleados", tags=["empleados"])
 
 
 #Entidad Empleado
@@ -27,11 +27,11 @@ empleados_list = [
 
 ]
 
-@app.get("/empleados")
+@router.get("/empleados")
 def obtener_empleados():
     return empleados_list
 
-@app.get("/empleados/{id}")
+@router.get("/empleados/{id}")
 def obtener_empleado_por_id(id:int):
     return search_empleado(id)
 
@@ -50,13 +50,13 @@ def next_id():
     return max_id+1
 
 #201 si va bien
-@app.post("/empleados", status_code=201, response_model=Empleado)
+@router.post("/empleados", status_code=201, response_model=Empleado)
 def add_empleado(nuevo_empleado:Empleado):
     nuevo_empleado.id = next_id()
     empleados_list.append(nuevo_empleado)
     return nuevo_empleado
 
-@app.put("/empleados/{id}", response_model=Empleado)
+@router.put("/empleados/{id}", response_model=Empleado)
 def modify_empleado(id:int, empleado_mod_or_add:Empleado):
     for index, empleado in enumerate(empleados_list):
         if empleado.id == id:
@@ -64,7 +64,7 @@ def modify_empleado(id:int, empleado_mod_or_add:Empleado):
             return empleado_mod_or_add
     raise HTTPException(status_code=404, detail="Empleado not found")
 
-@app.delete("/empleados/{id}")
+@router.delete("/empleados/{id}")
 def remove_empleado(id: int):
     for saved_empleado in empleados_list:
         if saved_empleado.id == id:
