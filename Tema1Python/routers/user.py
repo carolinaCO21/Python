@@ -24,6 +24,15 @@ users_list =   [User(id=1,name = "Paco", surname="Pérez", age=30),
                 User(id=3,name = "Lucía", surname="Rodríquez", age=40) 
                 ]
 
+# sin barra ninguna para que no se confunda
+#Método get con query
+# http://127.0.0.1:8000/users?id=1
+@router.get("")
+def get_user(id : int):
+    user = search_user(id)
+    if user:
+        return user
+    raise HTTPException(status_code=404, detail="No user found")
 
 @router.get("/")
 def users():
