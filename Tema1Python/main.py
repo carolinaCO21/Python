@@ -1,5 +1,13 @@
+"""
+crear entorno Python : Create Enviroment
+(.venv) PS C:\Users\carolina.carrera\Python> pip install "fastapi[standard]"
+(.venv) PS C:\Users\carolina.carrera\Python> pip install pyjwt
+(.venv) PS C:\Users\carolina.carrera\Python> pip install "pwdlib[argon2]"
+
+
+"""
 from routers import user
-from routers import tienda, empleado, auth_users
+from routers import tienda, empleado, auth_usersOfMyApi
 from fastapi import FastAPI, HTTPException
 
 from fastapi.staticfiles import StaticFiles
@@ -10,7 +18,7 @@ app= FastAPI()
 app.include_router(tienda.router)
 app.include_router(empleado.router)
 app.include_router(user.router)
-app.include_router(auth_users.router)
+app.include_router(auth_usersOfMyApi.router)
 #app.mount("/static", StaticFiles(directory="static"), name="static")
 
 

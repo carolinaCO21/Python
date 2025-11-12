@@ -6,7 +6,9 @@
 #from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-from fastapi import  APIRouter, HTTPException
+from fastapi import  APIRouter, Depends, HTTPException
+
+from auth_usersOfMyApi import authentication
 # http://127.0.0.1:8000/docs#/ 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -66,7 +68,7 @@ def next_id():
 # POST status_code= 201 si va bien
                                         # le masamos una clase para append
 @router.post("/", status_code=201, response_model=User)
-def add_user(user: User):
+def add_user(user: User, authorized = Depends(authentication)):
     # Calculamos nuevo id y lo modificamos al usuario a añadir
     user.id = next_id()
     # Añadimos el usuario a nuestra lista
